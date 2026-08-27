@@ -1,0 +1,18 @@
+{
+  "name": "skill-authoring",
+  "version": "0.1.0",
+  "description": "一つの再利用可能な仕事を完了する自己完結skillを、利用場面と境界事例から設計・作成・更新する",
+  "author": {
+    "name": "NaoyaNakamori"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Skill Authoring",
+    "shortDescription": "自己完結したskillを作成・更新する",
+    "longDescription": "利用場面、非該当例、境界事例から責務と判断規律を定め、解釈の曖昧さを減らした自己完結skillを作成・更新します。",
+    "developerName": "NaoyaNakamori",
+    "category": "Developer Tools",
+    "capabilities": [],
+    "defaultPrompt": "一つの仕事を完了する自己完結skillを作成または更新してください。"
+  }
+}

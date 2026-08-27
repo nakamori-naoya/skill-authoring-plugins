@@ -1,0 +1,7 @@
+{
+  "name": "skill-authoring",
+  "version": "0.1.0",
+  "description": "一つの再利用可能な仕事を完了する自己完結skillを、利用場面と境界事例から設計・作成・更新する",
+  "skills": "./skills/",
+  "author": {"name": "NaoyaNakamori"}
+}
