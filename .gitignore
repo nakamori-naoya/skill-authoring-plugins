@@ -13,6 +13,8 @@ __pycache__/
 !/plugins/
 !/scripts/
 !/AGENTS.md
+!/LICENSE
 !/README.md
+!/SECURITY.md
 !/VALIDATION.md
 !/.gitignore
