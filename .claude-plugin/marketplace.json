@@ -7,7 +7,7 @@
       "name": "skill-authoring",
       "source": "./plugins/skill-authoring",
       "description": "一つの再利用可能な仕事を完了する自己完結skillを作成・更新する",
-      "version": "0.1.0"
+      "version": "0.1.1"
     }
   ]
 }
