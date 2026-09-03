@@ -18,6 +18,7 @@ for cmd in bash find jq python3 rg; do
 done
 
 bash "$ROOT/scripts/validate-marketplace.sh" "$ROOT" && pass "marketplace配布契約" || fail "marketplace配布契約"
+bash "$ROOT/scripts/test-marketplace-validation.sh" && pass "marketplace配布契約の負例" || fail "marketplace配布契約の負例"
 
 if jq -e '.name=="skill-authoring" and (.plugins|length==1) and .plugins[0].name=="skill-authoring" and .plugins[0].version=="0.1.1" and .plugins[0].source.path=="./plugins/skill-authoring"' "$ROOT/.agents/plugins/marketplace.json" >/dev/null \
   && jq -e '.name=="skill-authoring" and (.plugins|length==1) and .plugins[0].name=="skill-authoring" and .plugins[0].version=="0.1.1" and .plugins[0].source=="./plugins/skill-authoring"' "$ROOT/.claude-plugin/marketplace.json" >/dev/null; then
