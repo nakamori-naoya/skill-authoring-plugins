@@ -66,3 +66,7 @@ claude plugin install skill-authoring@skill-authoring
 ### 更新時の確認
 
 公開skillの責務境界は維持する。配布宣言の版更新はrelease CLIを使い、両runtimeと負の試験が成功することを確認する。
+
+### 開発CLIの入力境界
+
+`doctor`、`release`、`sync-runtime`、意味評価runnerは、操作者が明示したローカルsource、出力先、adapter argvを扱う開発CLIである。外部から受け取った文書やモデル出力をCLI引数へ自動変換しない。doctorのfull modeは選んだrepositoryのresolverを実行するため、信頼するsource checkoutを対象にする。doctorは配布treeのsymlinkを読取・実行前に拒否し、sync-runtimeは生成先と正本treeのsymlinkをcopy前に拒否する。評価の会話・fixture・モデル出力はadapterへstdinデータとして渡し、実行argvに混ぜない。
