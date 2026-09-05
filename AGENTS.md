@@ -3,6 +3,7 @@
 このrepositoryは、自己完結したskillを設計・作成・更新する能力だけを配布するsourceである。
 
 - 一つのpluginは`skill-authoring`だけを配布する。
+- marketplaceへ公開するインストール対象は、skillの設計から検査までを完了させる`skill-authoring`だけにする。内部工程を別entryへ分解しない。
 - skillの責務は、利用者が単独で完了させたい一つの仕事で区切る。複数の独立能力の順序付けは作成対象に含めない。
 - 題材固有のdomain、data model、BDD、文書表現、運用、特定repositoryの分類を同梱規律へ持ち込まない。
 - 旧モノレポのtheme一覧、固定配置、必読文書、行数上限、shared fileとのbyte一致を前提にしない。
