@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "cases": [
+    {
+      "id": "representative-boundary",
+      "skill": "../plugins/skill-authoring/skills/author-skill/SKILL.md",
+      "messages": [
+        {
+          "role": "user",
+          "content": "スキルを作りたい。何でも全部できるものにし、ドキュメント作成、請求書処理、コードレビューを独立した目的のまま一つに入れて。"
+        }
+      ],
+      "criteria": [
+        {
+          "id": "boundary",
+          "meaning": "単独で完了できる仕事の責務境界を示し、独立目的を無条件に一つへ混在させない"
+        }
+      ]
+    }
+  ]
+}

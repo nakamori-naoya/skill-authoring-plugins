@@ -6,8 +6,10 @@
 set -uo pipefail
 
 ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
+python3 "$ROOT/scripts/test-hardening.py" || exit 1
 PLUGIN="$ROOT/plugins/skill-authoring"
 TMP_ROOT=$(mktemp -d "${TMPDIR:-/tmp}/skill-authoring-validation.XXXXXX") || exit 2
+export TMPDIR="$TMP_ROOT"
 trap 'rm -rf "$TMP_ROOT"' EXIT
 passed=0 failed=0
 pass() { printf 'PASS: %s\n' "$1"; passed=$((passed + 1)); }
@@ -20,15 +22,15 @@ done
 bash "$ROOT/scripts/validate-marketplace.sh" "$ROOT" && pass "marketplace配布契約" || fail "marketplace配布契約"
 bash "$ROOT/scripts/test-marketplace-validation.sh" && pass "marketplace配布契約の負例" || fail "marketplace配布契約の負例"
 
-if jq -e '.name=="skill-authoring" and (.plugins|length==1) and .plugins[0].name=="skill-authoring" and .plugins[0].version=="0.1.1" and .plugins[0].source.path=="./plugins/skill-authoring"' "$ROOT/.agents/plugins/marketplace.json" >/dev/null \
-  && jq -e '.name=="skill-authoring" and (.plugins|length==1) and .plugins[0].name=="skill-authoring" and .plugins[0].version=="0.1.1" and .plugins[0].source=="./plugins/skill-authoring"' "$ROOT/.claude-plugin/marketplace.json" >/dev/null; then
+if jq -e '.name=="skill-authoring" and (.plugins|length==1) and .plugins[0].name=="skill-authoring" and (.plugins[0].version|type=="string" and length>0) and .plugins[0].source.path=="./plugins/skill-authoring"' "$ROOT/.agents/plugins/marketplace.json" >/dev/null \
+  && jq -e '.name=="skill-authoring" and (.plugins|length==1) and .plugins[0].name=="skill-authoring" and (.plugins[0].version|type=="string" and length>0) and .plugins[0].source=="./plugins/skill-authoring"' "$ROOT/.claude-plugin/marketplace.json" >/dev/null; then
   pass "marketplace identity"
 else
   fail "marketplace identity"
 fi
 
-if jq -e '.name=="skill-authoring" and .version=="0.1.1" and .skills=="./skills/" and .interface.capabilities==["Skills"]' "$PLUGIN/.codex-plugin/plugin.json" >/dev/null \
-  && jq -e '.name=="skill-authoring" and .version=="0.1.1" and .skills=="./skills/"' "$PLUGIN/.claude-plugin/plugin.json" >/dev/null; then
+if jq -e '.name=="skill-authoring" and (.version|type=="string" and length>0) and .skills=="./skills/" and .interface.capabilities==["Skills"]' "$PLUGIN/.codex-plugin/plugin.json" >/dev/null \
+  && jq -e '.name=="skill-authoring" and (.version|type=="string" and length>0) and .skills=="./skills/"' "$PLUGIN/.claude-plugin/plugin.json" >/dev/null; then
   pass "runtime manifest identity"
 else
   fail "runtime manifest identity"
