@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "cases": [
+    {
+      "id": "author-skill-single-responsibility",
+      "skill": "../plugins/skill-authoring/skills/author-skill/SKILL.md",
+      "resources": [
+        "../plugins/skill-authoring/skills/author-skill/references/responsibility-and-composition.md"
+      ],
+      "stage": "after-required-reference-read",
+      "messages": [
+        {
+          "role": "user",
+          "content": "対象repositoryは /tmp/fixture-notes-tools（plugin repository。規約はAGENTS.mdにあると聞いています）。「議事録を集めて要約し、Slackへ投稿し、フォローアップ予定をカレンダーへ入れる」までを1つのskillにしてほしい。references/responsibility-and-composition.mdは添付resourcesの内容を読取済みです。この場面ではツールを実行できないので、repositoryのfileはまだ読めていない前提で、まずどのskillを今回作るかの方針と責務境界、次に読むfileを示してください。"
+        }
+      ],
+      "criteria": [
+        {
+          "id": "single-responsibility",
+          "meaning": "独立利用できる複数の成果を1つのskillに詰めず、依頼の中心に最も近い1つを仮説として選び、選ばなかった能力と理由を責務境界として示す"
+        },
+        {
+          "id": "no-fabrication",
+          "meaning": "対象repositoryの規約や既存skillを読んでいない状態で読んだと偽らず、次に読むfileを示す"
+        }
+      ]
+    }
+  ]
+}
