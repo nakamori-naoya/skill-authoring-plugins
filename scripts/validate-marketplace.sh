@@ -102,16 +102,14 @@ cmp -s "$TMP_ROOT/codex-catalog.json" "$TMP_ROOT/claude-catalog.json" \
   || fail 'catalog name, version, or source differs between runtimes'
 
 jq -r '.plugins[].source.path' "$codex_catalog" | sort > "$TMP_ROOT/catalog-sources"
-find "$ROOT/plugins" -path '*/.codex-plugin/plugin.json' -type f | while IFS= read -r manifest; do
-  relative=${manifest#"$ROOT/"}
-  printf './%s\n' "${relative%/.codex-plugin/plugin.json}"
-done | sort > "$TMP_ROOT/codex-sources"
-find "$ROOT/plugins" -path '*/.claude-plugin/plugin.json' -type f | while IFS= read -r manifest; do
-  relative=${manifest#"$ROOT/"}
-  printf './%s\n' "${relative%/.claude-plugin/plugin.json}"
-done | sort > "$TMP_ROOT/claude-sources"
-cmp -s "$TMP_ROOT/catalog-sources" "$TMP_ROOT/codex-sources" || fail 'Codex manifests and catalog sources differ'
-cmp -s "$TMP_ROOT/catalog-sources" "$TMP_ROOT/claude-sources" || fail 'Claude manifests and catalog sources differ'
+# Marketplace package rootsだけをcatalog inventoryと照合する。公開playbookと内部pluginも
+# 自身のruntime manifestを持つため、再帰的なmanifest数をpackage数の代理にしない。
+find "$ROOT/plugins" -mindepth 1 -maxdepth 1 -type d | while IFS= read -r package_root; do
+  relative=${package_root#"$ROOT/"}
+  printf './%s\n' "$relative"
+done | sort > "$TMP_ROOT/package-sources"
+cmp -s "$TMP_ROOT/catalog-sources" "$TMP_ROOT/package-sources" \
+  || fail 'catalog sources and installable package roots differ'
 
 while IFS='|' read -r name version source; do
   case "$source" in
@@ -179,40 +177,48 @@ while IFS='|' read -r name version source; do
     if [ ! -d "$plugin_root/skills" ] || [ -L "$plugin_root/skills" ]; then
       fail "$name skills contract requires a physical non-symlink skills directory"
     fi
+    while IFS= read -r -d '' skill_entry; do
+      if [ ! -f "$skill_entry" ] || [ -L "$skill_entry" ] \
+        || ! file_has_non_whitespace "$skill_entry"; then
+        fail "$name SKILL.md must contain non-whitespace content"
+      fi
+    done < <(find "$plugin_root/skills" -name SKILL.md -print0)
     for runtime in codex claude; do
       manifest="$plugin_root/.$runtime-plugin/plugin.json"
-      declared_skills=$(jq -er '.skills | select(type == "string" and length > 0)' "$manifest" 2>/dev/null) || {
+      if ! jq -e '.skills | (type == "string" and length > 0) or (type == "array" and length > 0 and all(.[]; type == "string" and length > 0))' "$manifest" >/dev/null; then
         fail "$name $runtime manifest must declare skills for its skills directory"
         continue
-      }
-      case "$declared_skills" in
-        /*)
-          fail "$name $runtime skills path must be relative"
-          continue
-          ;;
-      esac
-      skills_path="$plugin_root/$declared_skills"
-      if [ ! -d "$skills_path" ] || [ -L "$skills_path" ]; then
-        fail "$name $runtime skills path must be a regular directory"
-        continue
       fi
-      resolved_skills=$(cd "$skills_path" && pwd -P)
-      case "$resolved_skills/" in
-        "$resolved_root/"*) ;;
-        *)
-          fail "$name $runtime skills path escapes the plugin root"
+      while IFS= read -r declared_skills; do
+        case "$declared_skills" in
+          /*)
+            fail "$name $runtime skills path must be relative"
+            continue
+            ;;
+        esac
+        skills_path="$plugin_root/$declared_skills"
+        if [ ! -d "$skills_path" ] || [ -L "$skills_path" ]; then
+          fail "$name $runtime skills path must be a regular directory"
           continue
-          ;;
-      esac
-      skill_count=0
-      while IFS= read -r -d '' skill_entry; do
-        skill_count=$((skill_count + 1))
-        if [ ! -f "$skill_entry" ] || [ -L "$skill_entry" ] \
-          || ! file_has_non_whitespace "$skill_entry"; then
-          fail "$name $runtime SKILL.md must contain non-whitespace content"
         fi
-      done < <(find "$resolved_skills" -name SKILL.md -print0)
-      [ "$skill_count" -gt 0 ] || fail "$name $runtime skills path contains no SKILL.md"
+        resolved_skills=$(cd "$skills_path" && pwd -P)
+        case "$resolved_skills/" in
+          "$resolved_root/"*) ;;
+          *)
+            fail "$name $runtime skills path escapes the plugin root"
+            continue
+            ;;
+        esac
+        skill_count=0
+        while IFS= read -r -d '' skill_entry; do
+          skill_count=$((skill_count + 1))
+          if [ ! -f "$skill_entry" ] || [ -L "$skill_entry" ] \
+            || ! file_has_non_whitespace "$skill_entry"; then
+            fail "$name $runtime SKILL.md must contain non-whitespace content"
+          fi
+        done < <(find "$resolved_skills" -name SKILL.md -print0)
+        [ "$skill_count" -gt 0 ] || fail "$name $runtime skills path contains no SKILL.md"
+      done < <(jq -r '.skills | if type == "array" then .[] else . end' "$manifest")
     done
     jq -e '.interface.capabilities | type == "array" and index("Skills") != null' "$codex_manifest" >/dev/null \
       || fail "$name Codex capabilities must include Skills"

@@ -5,7 +5,9 @@
   "author": {
     "name": "NaoyaNakamori"
   },
-  "skills": "./skills/",
+  "skills": [
+    "./skills/author-skill"
+  ],
   "interface": {
     "displayName": "Skill Authoring",
     "shortDescription": "自己完結したskillを作成・更新する",
@@ -16,5 +18,11 @@
       "Skills"
     ],
     "defaultPrompt": "一つの仕事を完了する自己完結skillを作成または更新してください。"
+  },
+  "metadata": {
+    "harness": {
+      "marketplace": "skill-authoring",
+      "contractVersion": 1
+    }
   }
 }
