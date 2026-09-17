@@ -13,6 +13,7 @@ __pycache__/
 !/plugins/
 !/scripts/
 !/evals/
+!/releases/
 !/AGENTS.md
 !/LICENSE
 !/README.md

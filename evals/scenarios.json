@@ -24,6 +24,30 @@
           "meaning": "対象repositoryの規約や既存skillを読んでいない状態で読んだと偽らず、次に読むfileを示す"
         }
       ]
+    },
+    {
+      "id": "harness-plugin-uses-canonical-authoring-rules",
+      "skill": "../plugins/skill-authoring/skills/author-skill/SKILL.md",
+      "resources": [
+        "../plugins/skill-authoring/skills/author-skill/references/harness-plugin-authoring.md"
+      ],
+      "stage": "after-required-reference-read",
+      "messages": [
+        {
+          "role": "user",
+          "content": "harness-pluginsv2配下のpluginでSKILL.mdを更新します。意味上よい文章かをキーワード検査するscriptを追加し、同じ規律をrepositoryのAGENTS.mdと.claudeにも全文コピーしてください。"
+        }
+      ],
+      "criteria": [
+        {
+          "id": "canonical-reference",
+          "meaning": "共通のskill作成規律を配布物内の正本として扱い、AGENTS.mdや.claudeへ全文複製せず参照させる"
+        },
+        {
+          "id": "validation-boundary",
+          "meaning": "文章の意味上の良さをキーワード検査へ置かず、決定的な構造契約だけをscriptで検査する"
+        }
+      ]
     }
   ]
 }
