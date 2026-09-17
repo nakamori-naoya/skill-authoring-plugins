@@ -16,7 +16,7 @@ description: 利用者が単独で完了させたい一つの仕事を、対象r
 
 ## 1. 対象と適用規約を確かめる
 
-変更対象のrepositoryとskillを特定し、そのpathへ適用される指示書をすべて読む。既存plugin / skillから構造、命名、manifest、検証commandを調べる。規約がなければ`skills/<skill-name>/SKILL.md`を入口にし、条件付き詳細があるときだけ`references/`、反復する決定的処理があるときだけ`scripts/`を作る。対象repositoryまたは変更権限を特定できない場合は、不足情報を返して止まる。
+変更対象のrepositoryとskillを特定し、そのpathへ適用される指示書をすべて読む。既存plugin / skillから構造、命名、manifest、検証commandを調べる。対象repositoryが`harness-pluginsv2` workspaceのplugin repositoryなら、[harness pluginのskillを作成・更新する共通規律](references/harness-plugin-authoring.md)を全文読み、workspaceとrepositoryの規約に合成して全工程へ適用する。規約がなければ`skills/<skill-name>/SKILL.md`を入口にし、条件付き詳細があるときだけ`references/`、反復する決定的処理があるときだけ`scripts/`を作る。対象repositoryまたは変更権限を特定できない場合は、不足情報を返して止まる。
 
 ## 2. 一つの責務へ絞る
 
@@ -43,6 +43,8 @@ description: 利用者が単独で完了させたい一つの仕事を、対象r
 ## 5. repositoryへ適合させて実装する
 
 [repositoryへの適合](references/repository-fit.md)を読む。descriptionには完了状態と主要な利用場面を書く。本文には仕事を完了する順序、重要な判断、必要な停止条件、報告を置く。条件付き詳細だけを直接到達できるreferenceへ分け、繰り返す決定的処理だけをscriptにする。入口から必要なresourceへ利用条件付きで到達でき、配布directory外の未宣言fileを必要としないことを確かめる。
+
+`harness-pluginsv2` workspaceでは、共通規律の本文をrepositoryの`AGENTS.md`、`.agents`、`.claude`へ複製しない。それらは配布物内の`references/harness-plugin-authoring.md`を正本として参照し、repository固有の責務、配置、検証だけを追加する。
 
 ## 6. 振る舞いを検証する
 
