@@ -1,6 +1,6 @@
 # harness pluginのskillを作成・更新する共通規律
 
-この文書は、`harness-pluginsv2` workspaceに属するplugin repositoryでskillを作成・更新するときの意味上の正本である。workspaceの`.agents`、`.claude`、各plugin repositoryの`AGENTS.md`は、この規律を複製せず参照する。
+この文書は、`harness-pluginsv2` workspaceに属するplugin repositoryでskillを作成・更新するときの意味上の正式な定義である。workspaceの`.agents`、`.claude`、各plugin repositoryの`AGENTS.md`は、この規律を複製せず参照する。
 
 この文書が所有するのはskillの責務、指示、resources、検証の判断規律である。marketplaceやmanifestのschema、公開・内部入口の配置、playbook契約、release、installなどworkspace固有の構造と運用は、workspaceのplugin package契約と各repositoryの規約が所有する。両方が適用される場合は、skillの意味と行動をこの文書で決め、その形がpackage契約に収まるように実装する。
 
@@ -32,7 +32,7 @@
 
 - `SKILL.md`は仕事全体の入口とし、主要な判断、手順、停止、報告を失わせない。
 - `references/`には条件付きの詳細判断、利用時に全文読む契約、代表例を置く。入口から、いつ読むかを直接示す。
-- `scripts/`には、閉じた入力とrepository内の正本から正誤が一意に決まり、同じ判定を反復する処理だけを置く。
+- `scripts/`には、閉じた入力とrepository内の基準資料から正誤が一意に決まり、同じ判定を反復する処理だけを置く。
 - `assets/`には成果物として再利用するtemplateや素材を置く。将来用placeholder、同じ規律の複製、同期blockを置かない。
 
 公開入口と内部skillは、配布directory内の`SKILL.md`、`references/`、`scripts/`、`assets/`と、宣言した公開依存だけで仕事を完了できるようにする。開発repositoryだけにあるfile、兄弟skillの内部path、実行済み状態、暗黙の順序へ依存しない。
@@ -44,7 +44,7 @@ toolを使うskillは、入口directory基準の相対path、入力、出力、�
 scriptへ入れるのは、次のすべてを満たす規則だけである。
 
 1. 判定に必要な閉じた入力を列挙できる。
-2. 期待値を導くrepository内の正本がある。
+2. 期待値を導くrepository内の基準資料がある。
 3. 正規化後の入力へ判定が一意である。
 4. 合格集合と拒否集合を真偽述語で書ける。
 5. 違反箇所を修正可能な診断として返せる。
@@ -52,7 +52,7 @@ scriptへ入れるのは、次のすべてを満たす規則だけである。
 
 構文、schema、識別子、配置、参照の実在、宣言の対応は機械検査にできる。責務分割、命名、文章、設計、例、未決、トレードオフ、複数資料の意味整合はagentが対象を読んで評価する。キーワード数、文長、見出し数、類似度、LLM採点を意味評価の代理gateにしない。
 
-新しい検査を追加する前に、正本、入力、正規化、合格述語、失敗時の診断、正例、反例、境界例、意味評価として残す範囲を宣言する。この宣言を書けなければscriptへ追加しない。
+新しい検査を追加する前に、基準資料、入力、正規化、合格述語、失敗時の診断、正例、反例、境界例、意味評価として残す範囲を宣言する。この宣言を書けなければscriptへ追加しない。
 
 ## repositoryの規約と合成する
 

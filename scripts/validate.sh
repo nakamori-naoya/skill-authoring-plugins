@@ -30,7 +30,7 @@ else
   fail "frontmatter YAML identity境界"
 fi
 
-# root契約（配置・manifest・隣接playbook.yml・禁止参照形）の正本は兄弟checkout harness-tools だけ。無ければ止まる（fixtureで代用しない）。repository固有のvalidate-marketplace.shはroot契約を置き換えない。
+# root契約（配置・manifest・隣接playbook.yml・禁止参照形）の基準資料は兄弟checkout harness-tools だけ。無ければ止まる（fixtureで代用しない）。repository固有のvalidate-marketplace.shはroot契約を置き換えない。
 TOOLS="$ROOT/../harness-tools/tools"
 [ -d "$TOOLS" ] || { echo "[error] 兄弟 checkout harness-tools が無い: $TOOLS" >&2; exit 2; }
 python3 "$TOOLS/validate-plugin-repository.py" "$ROOT" >"$TMP_ROOT/root-contract.out" 2>&1 && pass "root契約（配置・manifest・隣接playbook.yml・禁止参照形）" || { cat "$TMP_ROOT/root-contract.out"; fail "root契約"; }

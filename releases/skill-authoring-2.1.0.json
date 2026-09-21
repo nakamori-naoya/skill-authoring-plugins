@@ -3,7 +3,7 @@
   "plugin": "skill-authoring",
   "version": "2.1.0",
   "created_at": "2026-09-17T07:44:24.989961+00:00",
-  "notes": "harness pluginのskill作成共通規律を配布物内の正本へ集約し、workspaceのagentsとclaudeから参照可能にする",
+  "notes": "harness pluginのskill作成共通規律を配布物内の基準資料へ集約し、workspaceのagentsとclaudeから参照可能にする",
   "breaking": "なし",
   "migration": "harness-pluginsv2配下のskill更新ではharness-plugin-authoring.mdを読み、repository入口へ規律本文を複製せず参照する",
   "checks": {
