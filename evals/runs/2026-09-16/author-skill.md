@@ -11,7 +11,7 @@ cd skill-authoring-plugins && python3 ../product-planning-plugins/shared/runtime
   --model claude-opus-5 --judge-model claude-sonnet-5 --settings '{"effort":"high"}' --output evals/runs/2026-09-16/author-skill.json
 ```
 
-このrepositoryは評価runtimeの複製を持たないので、正本を直接使った。fixtureはこのevalのために新規作成した（4工程を1 skillに求める依頼）。
+このrepositoryは評価runtimeの複製を持たないので、基準資料を直接使った。fixtureはこのevalのために新規作成した（4工程を1 skillに求める依頼）。
 
 ## agentの所見（「」は応答の逐語）
 

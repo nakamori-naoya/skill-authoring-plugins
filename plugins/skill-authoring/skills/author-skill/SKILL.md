@@ -44,7 +44,7 @@ description: 利用者が単独で完了させたい一つの仕事を、対象r
 
 [repositoryへの適合](references/repository-fit.md)を読む。descriptionには完了状態と主要な利用場面を書く。本文には仕事を完了する順序、重要な判断、必要な停止条件、報告を置く。条件付き詳細だけを直接到達できるreferenceへ分け、繰り返す決定的処理だけをscriptにする。入口から必要なresourceへ利用条件付きで到達でき、配布directory外の未宣言fileを必要としないことを確かめる。
 
-`harness-pluginsv2` workspaceでは、共通規律の本文をrepositoryの`AGENTS.md`、`.agents`、`.claude`へ複製しない。それらは配布物内の`references/harness-plugin-authoring.md`を正本として参照し、repository固有の責務、配置、検証だけを追加する。
+`harness-pluginsv2` workspaceでは、共通規律の本文をrepositoryの`AGENTS.md`、`.agents`、`.claude`へ複製しない。それらは配布物内の`references/harness-plugin-authoring.md`を正式な定義として参照し、repository固有の責務、配置、検証だけを追加する。
 
 ## 6. 振る舞いを検証する
 
