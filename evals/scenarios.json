@@ -41,7 +41,7 @@
       "criteria": [
         {
           "id": "canonical-reference",
-          "meaning": "共通のskill作成規律を配布物内の正本として扱い、AGENTS.mdや.claudeへ全文複製せず参照させる"
+          "meaning": "共通のskill作成規律を配布物内の基準資料として扱い、AGENTS.mdや.claudeへ全文複製せず参照させる"
         },
         {
           "id": "validation-boundary",
