@@ -1,12 +1,13 @@
 {
   "name": "skill-authoring",
-  "version": "2.2.0",
-  "description": "一つの再利用可能な仕事を完了する自己完結skillを、利用場面と境界事例から設計・作成・更新する",
+  "version": "2.3.0",
+  "description": "自己完結skillを利用場面と境界事例から作成・更新し、agentの記憶と案件の規約をpluginへの昇格・留置・破棄に振り分ける",
   "author": {
     "name": "NaoyaNakamori"
   },
   "skills": [
-    "./skills/author-skill"
+    "./skills/author-skill",
+    "./skills/triage-agent-memory"
   ],
   "interface": {
     "displayName": "Skill Authoring",
