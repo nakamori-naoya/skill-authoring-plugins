@@ -20,9 +20,9 @@ description: 利用者が単独で完了させたい一つの仕事を、対象r
 1. **対象と適用規約を確かめる。** 変更対象のrepositoryとskillを特定し、そのpathへ適用される指示書をすべて読む。既存plugin / skillから構造、命名、manifest、検証commandを調べる。対象repositoryが`harness-pluginsv2` workspaceのplugin repositoryなら、[harness pluginのskillを作成・更新する共通規律](references/harness-plugin-authoring.md)を全文読み、以降のすべての手順へ適用する。規約がなければ`skills/<skill-name>/SKILL.md`を入口にし、条件付き詳細があるときだけ`references/`、反復する決定的処理があるときだけ`scripts/`を作る。
 2. **一つの責務へ絞り、判断の持ち主を確かめる。** [責務と構成の境界](references/responsibility-and-composition.md)を読み、利用者が単独で完了させたい仕事と、その仕事に含めない責務を明らかにする。独立利用できる成果が複数残る場合は、今回の対象と別作業を分ける。次に、このskillが持つ判断を列挙し、共通規律の「判断の持ち主を一つにする」に従って、同じ判断を持つskillが無いかを各repositoryのREADMEの「このpackageが持つ判断」で確かめる。
 3. **使用から意味を固定する。** [意味と境界](references/meaning-and-boundaries.md)を読む。主要な利用場面と、責務を取り違えやすい場面を比べ、判断や行動を実際に変える概念だけを書く。利用者の個別の指示や一つの案件の設計を取り込むときは、共通規律の「あるべき形だけを書く」に従って一段抽象化する。
-4. **判断と行動が伝わる指示を書く。** workspaceのplugin repositoryでは、共通規律の「分からないことを推測で埋めない」「文章は少数の本質から書く」「指示の内容」に従って本文を書く。workspaceの外のrepositoryでは、[判断と行動を明確にする方法](references/instruction-clarity.md)に従う。どちらでも、root解決の環境変数、設定展開script、「解決済みYAMLを読め」型の指示が残っていれば、skillが実際に使うtoolを入口directory相対のpathで示し、入力、出力、失敗の観測方法、失敗時に止まるか回復するかを一か所に書いたtool契約へ置き換える。
+4. **判断と行動が伝わる指示を書く。** workspaceのplugin repositoryでは、共通規律の「分からないことを推測で埋めない」「指示の内容」に従い、文の書き方は `write-doc` の書くときの規範に従って本文を書く。workspaceの外のrepositoryでは、[判断と行動を明確にする方法](references/instruction-clarity.md)に従う。どちらでも、root解決の環境変数、設定展開script、「解決済みYAMLを読め」型の指示が残っていれば、skillが実際に使うtoolを入口directory相対のpathで示し、入力、出力、失敗の観測方法、失敗時に止まるか回復するかを一か所に書いたtool契約へ置き換える。
 5. **repositoryへ適合させて実装する。** [repositoryへの適合](references/repository-fit.md)を読み、descriptionに完了状態と主要な利用場面を書く。条件付き詳細だけを直接到達できるreferenceへ分け、繰り返す決定的処理だけをscriptにする。持つ判断を変えたら、repositoryのREADMEの「このpackageが持つ判断」も同じ変更で直す。
-6. **振る舞いを検証する。** [検証](references/verification.md)を読み、主要な利用場面と変更のリスクを代表するfixtureで判断と停止を確かめ、対象repositoryの全検証を実行する。構造検査が言うのは構文、識別子、配置、参照の実在だけである。判断基準が観察できるか、分からないときの振る舞いがskillの種類に合っているか、同じ判断を別のskillが持っていないか、返し先が実在するか、本文が少数の本質から見出しと文章で書かれているかは、実行agentとして読んで判定する。
+6. **振る舞いを検証する。** [検証](references/verification.md)を読み、主要な利用場面と変更のリスクを代表するfixtureで判断と停止を確かめ、対象repositoryの全検証を実行する。構造検査が言うのは構文、識別子、配置、参照の実在だけである。判断基準が観察できるか、分からないときの振る舞いがskillの種類に合っているか、同じ判断を別のskillが持っていないか、返し先が実在するか、本文が `write-doc` の書くときの規範に沿っているかは、実行agentとして読んで判定する。
 7. **報告する。** 変更したskill、守る責務と主要な判断、resourcesを分けた理由、実行した検証とその結果、目視評価、採った設計上の選択と採らなかった案、未確認事項を報告する。
 
 ## 停止条件
