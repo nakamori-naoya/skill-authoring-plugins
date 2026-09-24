@@ -98,4 +98,16 @@ marketplaceの取得と、インストール済みパッケージの更新は分
 
 ## このpackageが持つ判断
 
-`skill-authoring` は、`harness-pluginsv2` workspaceでskillを作成・更新するときの共通規律を持つ。中身は、一つの判断を一つのskillだけが持つこと、判断の持ち主を各repositoryのREADMEのこの節で探すこと、「返す」先を実在する公開入口か「repositoryの決定」に限ること、分からないときに資料を作るskillは仮説を未決に明示して進み、コード・外部の状態・他人の資料を変えるskillは止まって提案すること、後方互換を捨ててあるべき形だけを書くこと、利用者の個別の指示を一段抽象化した原則と判断例に分けて取り込むこと、少数の本質から見出しと文章で書き、表は行をまたいで比べるときだけ、箇条書きは順序のある手順だけに使うことである。正式な定義は [共通規律](plugins/skill-authoring/skills/author-skill/references/harness-plugin-authoring.md) にある。
+`skill-authoring` は、`harness-pluginsv2` workspaceでskillを作成・更新するときの共通規律を持つ。正式な定義は [共通規律](plugins/skill-authoring/skills/author-skill/references/harness-plugin-authoring.md) で、次の判断はそれぞれの節が持つ。
+
+一つの判断を一つのskillだけが持つこと、判断の持ち主を各repositoryのREADMEのこの節で探すこと、「返す」先を実在する公開入口か「repositoryの決定」に限ることは、「判断の持ち主を一つにする」が持つ。
+
+分からないとき、資料を作るskillは仮説を未決に明示して進み、コード・外部の状態・他人の資料を変えるskillは止まって提案することは、「分からないことを推測で埋めない」が持つ。
+
+後方互換を捨ててあるべき形だけを書くことと、利用者の個別の指示を一段抽象化した原則と判断例に分けて取り込むことは、「あるべき形だけを書く」が持つ。
+
+少数の本質から見出しと文章で書き、表は行をまたいで比べるときだけ、箇条書きは順序のある手順だけに使うことは、「文章は少数の本質から書く」が持つ。
+
+検査scriptには意味が一意に決まることだけを判定させ、解釈の要ることはagentが読んで評価することは、「機械検査と意味評価を分ける」が持つ。
+
+skillが他のskillを参照してよい形は持たず、workspaceのplugin package契約に従う。
