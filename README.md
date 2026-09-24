@@ -106,8 +106,8 @@ marketplaceの取得と、インストール済みパッケージの更新は分
 
 後方互換を捨ててあるべき形だけを書くことと、利用者の個別の指示を一段抽象化した原則と判断例に分けて取り込むことは、「あるべき形だけを書く」が持つ。
 
-少数の本質から見出しと文章で書き、表は行をまたいで比べるときだけ、箇条書きは順序のある手順だけに使うことは、「文章は少数の本質から書く」が持つ。
+文の書き方は持たず、`write-doc` の書くときの規範に従う。
 
 検査scriptには意味が一意に決まることだけを判定させ、解釈の要ることはagentが読んで評価することは、「機械検査と意味評価を分ける」が持つ。
 
-skillが他のskillを参照してよい形は持たず、workspaceのplugin package契約に従う。
+skillが他のskillを参照してよい形も持たず、workspaceのplugin package契約（/Users/naoya-nakamoriq/Documents/Github/harness-pluginsv2/.agents/rules/plugin-package-contract.md）に従う。
