@@ -95,3 +95,7 @@ marketplaceの取得と、インストール済みパッケージの更新は分
 - `skill-authoring`: 一つの再利用可能な仕事を完了する自己完結skillを作成・更新する
 
 利用契約は[plugin README](plugins/skill-authoring/README.md)、検証方法は[VALIDATION.md](VALIDATION.md)を参照してください。
+
+## このpackageが持つ判断
+
+`skill-authoring` は、`harness-pluginsv2` workspaceでskillを作成・更新するときの共通規律を持つ。中身は、一つの判断を一つのskillだけが持つこと、判断の持ち主を各repositoryのREADMEのこの節で探すこと、「返す」先を実在する公開入口か「repositoryの決定」に限ること、分からないときに資料を作るskillは仮説を未決に明示して進み、コード・外部の状態・他人の資料を変えるskillは止まって提案すること、後方互換を捨ててあるべき形だけを書くこと、利用者の個別の指示を一段抽象化した原則と判断例に分けて取り込むこと、少数の本質から見出しと文章で書き、表は行をまたいで比べるときだけ、箇条書きは順序のある手順だけに使うことである。正式な定義は [共通規律](plugins/skill-authoring/skills/author-skill/references/harness-plugin-authoring.md) にある。

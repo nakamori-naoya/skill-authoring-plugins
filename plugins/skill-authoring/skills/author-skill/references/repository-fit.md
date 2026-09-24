@@ -6,12 +6,6 @@
 
 新規作成で対象repositoryに規約がない場合は、次の最小原則を使う。
 
-- 配布単位とskill入口を明確にする
-- 公開skillが一つなら入口を一つだけにする
-- `SKILL.md`には発見用description、end-to-end workflow、停止条件、報告を置く
-- 条件付きの詳しい判断だけを`references/`へ置き、入口から読む時点を示す
-- 決定的処理を繰り返し実行する必要がある場合だけ`scripts/`へ置く
-- 配布先で使えないrepository外pathや、未宣言の外部skillを前提にしない
-- 空directory、将来用placeholder、重複するREADMEやreferenceを作らない
+配布単位とskill入口を明確にし、公開skillが一つなら入口を一つだけにする。`SKILL.md`には発見用description、end-to-end workflow、停止条件、報告を置く。条件付きの詳しい判断だけを`references/`へ置き、入口から読む時点を示す。決定的処理を繰り返し実行する必要がある場合だけ`scripts/`へ置く。配布先で使えないrepository外pathや、未宣言の外部skillを前提にしない。空directory、将来用placeholder、重複するREADMEやreferenceを作らない。
 
 行数、theme名、固定directory階層、必読文書名を普遍規則にしない。それらは対象repositoryが明示した場合だけ従う。規約がないことを、独自規約を大量に追加する許可として扱わない。
