@@ -38,15 +38,17 @@ python3 "$TOOLS/validate-plugin-repository.py" "$ROOT" >"$TMP_ROOT/root-contract
 bash "$ROOT/scripts/validate-marketplace.sh" "$ROOT" && pass "marketplace配布契約" || fail "marketplace配布契約"
 bash "$ROOT/scripts/test-marketplace-validation.sh" && pass "marketplace配布契約の負例" || fail "marketplace配布契約の負例"
 
-if jq -e '.name=="skill-authoring" and (.plugins|length==1) and .plugins[0].name=="skill-authoring" and .plugins[0].version=="2.1.0" and .plugins[0].source.path=="./plugins/skill-authoring"' "$ROOT/.agents/plugins/marketplace.json" >/dev/null \
-  && jq -e '.name=="skill-authoring" and (.plugins|length==1) and .plugins[0].name=="skill-authoring" and .plugins[0].version=="2.1.0" and .plugins[0].source=="./plugins/skill-authoring"' "$ROOT/.claude-plugin/marketplace.json" >/dev/null; then
+# 期待versionはruntime manifestから導き、両marketplaceと両manifestが同じ値を持つことを確かめる。
+VERSION=$(jq -r .version "$PLUGIN/.claude-plugin/plugin.json")
+if jq -e --arg v "$VERSION" '.name=="skill-authoring" and (.plugins|length==1) and .plugins[0].name=="skill-authoring" and .plugins[0].version==$v and .plugins[0].source.path=="./plugins/skill-authoring"' "$ROOT/.agents/plugins/marketplace.json" >/dev/null \
+  && jq -e --arg v "$VERSION" '.name=="skill-authoring" and (.plugins|length==1) and .plugins[0].name=="skill-authoring" and .plugins[0].version==$v and .plugins[0].source=="./plugins/skill-authoring"' "$ROOT/.claude-plugin/marketplace.json" >/dev/null; then
   pass "marketplace identity"
 else
   fail "marketplace identity"
 fi
 
-if jq -e '.name=="skill-authoring" and .version=="2.1.0" and .skills==["./skills/author-skill"] and .interface.capabilities==["Skills"] and .metadata.harness=={"marketplace":"skill-authoring","contractVersion":1}' "$PLUGIN/.codex-plugin/plugin.json" >/dev/null \
-  && jq -e '.name=="skill-authoring" and .version=="2.1.0" and .skills==["./skills/author-skill"] and .metadata.harness=={"marketplace":"skill-authoring","contractVersion":1}' "$PLUGIN/.claude-plugin/plugin.json" >/dev/null; then
+if jq -e --arg v "$VERSION" '.name=="skill-authoring" and .version==$v and .skills==["./skills/author-skill"] and .interface.capabilities==["Skills"] and .metadata.harness=={"marketplace":"skill-authoring","contractVersion":1}' "$PLUGIN/.codex-plugin/plugin.json" >/dev/null \
+  && jq -e --arg v "$VERSION" '.name=="skill-authoring" and .version==$v and .skills==["./skills/author-skill"] and .metadata.harness=={"marketplace":"skill-authoring","contractVersion":1}' "$PLUGIN/.claude-plugin/plugin.json" >/dev/null; then
   pass "runtime manifest identity"
 else
   fail "runtime manifest identity"
