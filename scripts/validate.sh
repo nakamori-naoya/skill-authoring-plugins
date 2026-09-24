@@ -47,20 +47,20 @@ else
   fail "marketplace identity"
 fi
 
-if jq -e --arg v "$VERSION" '.name=="skill-authoring" and .version==$v and .skills==["./skills/author-skill"] and .interface.capabilities==["Skills"] and .metadata.harness=={"marketplace":"skill-authoring","contractVersion":1}' "$PLUGIN/.codex-plugin/plugin.json" >/dev/null \
-  && jq -e --arg v "$VERSION" '.name=="skill-authoring" and .version==$v and .skills==["./skills/author-skill"] and .metadata.harness=={"marketplace":"skill-authoring","contractVersion":1}' "$PLUGIN/.claude-plugin/plugin.json" >/dev/null; then
+if jq -e --arg v "$VERSION" '.name=="skill-authoring" and .version==$v and .skills==["./skills/author-skill","./skills/triage-agent-memory"] and .interface.capabilities==["Skills"] and .metadata.harness=={"marketplace":"skill-authoring","contractVersion":1}' "$PLUGIN/.codex-plugin/plugin.json" >/dev/null \
+  && jq -e --arg v "$VERSION" '.name=="skill-authoring" and .version==$v and .skills==["./skills/author-skill","./skills/triage-agent-memory"] and .metadata.harness=={"marketplace":"skill-authoring","contractVersion":1}' "$PLUGIN/.claude-plugin/plugin.json" >/dev/null; then
   pass "runtime manifest identity"
 else
   fail "runtime manifest identity"
 fi
 
-if [ -f "$PLUGIN/skills/author-skill/SKILL.md" ] \
-  && [ "$(find "$PLUGIN" -type f -name SKILL.md | wc -l | tr -d ' ')" = "1" ] \
+if [ -f "$PLUGIN/skills/author-skill/SKILL.md" ] && [ -f "$PLUGIN/skills/triage-agent-memory/SKILL.md" ] \
+  && [ "$(find "$PLUGIN" -type f -name SKILL.md | wc -l | tr -d ' ')" = "2" ] \
   && [ ! -e "$PLUGIN/playbooks" ] && [ ! -e "$PLUGIN/internal" ] \
   && [ "$(find "$PLUGIN" -type d \( -name .claude-plugin -o -name .codex-plugin \) | wc -l | tr -d ' ')" = "2" ]; then
-  pass "単一skill入口"
+  pass "公開入口は author-skill と triage-agent-memory の二つ"
 else
-  fail "単一skill入口"
+  fail "公開入口の構成"
 fi
 
 if python3 - "$PLUGIN" <<'PY'
@@ -68,12 +68,13 @@ from pathlib import Path
 import re
 import sys
 
-root = Path(sys.argv[1]) / "skills" / "author-skill"
-skill = (root / "SKILL.md").read_text()
-links = re.findall(r"\[[^]]+\]\((references/[^)]+\.md)\)", skill)
-expected = sorted(str(path.relative_to(root)) for path in (root / "references").glob("*.md"))
-if sorted(links) != expected or any(not (root / link).is_file() for link in links):
-    raise SystemExit(1)
+for entry in ("author-skill", "triage-agent-memory"):
+    root = Path(sys.argv[1]) / "skills" / entry
+    skill = (root / "SKILL.md").read_text()
+    links = sorted(set(re.findall(r"\[[^]]+\]\((references/[^)]+\.md)\)", skill)))
+    expected = sorted(str(path.relative_to(root)) for path in (root / "references").glob("*.md"))
+    if links != expected or any(not (root / link).is_file() for link in links):
+        raise SystemExit(1)
 PY
 then
   pass "referenceは入口から直接到達"
@@ -91,13 +92,15 @@ fi
 
 # 禁止参照形（root validatorと同じ4 token）。README.mdは対象外
 if ! rg -nF -e '${.' -e '<!-- BEGIN shared:' -e 'CLAUDE_PLUGIN_ROOT' -e 'BUNDLE_ROOT' \
-    "$PLUGIN/skills/author-skill/SKILL.md" "$PLUGIN/skills/author-skill/references" >/dev/null; then
+    "$PLUGIN/skills/author-skill/SKILL.md" "$PLUGIN/skills/author-skill/references" \
+    "$PLUGIN/skills/triage-agent-memory/SKILL.md" "$PLUGIN/skills/triage-agent-memory/references" >/dev/null; then
   pass "禁止参照形の不在"
 else
   fail "禁止参照形が残存"
 fi
 
-if [ "$(skill_frontmatter_name "$PLUGIN/skills/author-skill/SKILL.md")" = "author-skill" ]; then
+if [ "$(skill_frontmatter_name "$PLUGIN/skills/author-skill/SKILL.md")" = "author-skill" ] \
+  && [ "$(skill_frontmatter_name "$PLUGIN/skills/triage-agent-memory/SKILL.md")" = "triage-agent-memory" ]; then
   pass "manifestから自己完結skillへの直接接続"
 else
   fail "manifestと自己完結skillのidentity不整合"
