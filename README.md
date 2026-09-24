@@ -110,4 +110,6 @@ marketplaceの取得と、インストール済みパッケージの更新は分
 
 検査scriptには意味が一意に決まることだけを判定させ、解釈の要ることはagentが読んで評価することは、「機械検査と意味評価を分ける」が持つ。
 
+agentの記憶と案件の規約を、pluginの規律への昇格、案件に留める、破棄に振り分ける判断は、公開入口 `triage-agent-memory` が持つ。この入口は振り分けを提案として返し、記憶と規約そのものは書き換えない。
+
 skillが他のskillを参照してよい形も持たず、workspaceのplugin package契約（/Users/naoya-nakamoriq/Documents/Github/harness-pluginsv2/.agents/rules/plugin-package-contract.md）に従う。
