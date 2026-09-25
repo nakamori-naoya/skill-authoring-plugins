@@ -1,6 +1,6 @@
 {
   "name": "skill-authoring",
-  "version": "2.4.0",
+  "version": "2.5.0",
   "description": "自己完結skillを利用場面と境界事例から作成・更新し、agentの記憶と案件の規約をpluginへの昇格・留置・破棄に振り分ける",
   "skills": [
     "./skills/author-skill",
