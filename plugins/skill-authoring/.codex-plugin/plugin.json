@@ -22,8 +22,7 @@
   },
   "metadata": {
     "harness": {
-      "marketplace": "skill-authoring",
-      "contractVersion": 1
+      "marketplace": "skill-authoring"
     }
   }
 }

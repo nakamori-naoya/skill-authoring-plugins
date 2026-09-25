@@ -47,8 +47,8 @@ else
   fail "marketplace identity"
 fi
 
-if jq -e --arg v "$VERSION" '.name=="skill-authoring" and .version==$v and .skills==["./skills/author-skill","./skills/triage-agent-memory"] and .interface.capabilities==["Skills"] and .metadata.harness=={"marketplace":"skill-authoring","contractVersion":1}' "$PLUGIN/.codex-plugin/plugin.json" >/dev/null \
-  && jq -e --arg v "$VERSION" '.name=="skill-authoring" and .version==$v and .skills==["./skills/author-skill","./skills/triage-agent-memory"] and .metadata.harness=={"marketplace":"skill-authoring","contractVersion":1}' "$PLUGIN/.claude-plugin/plugin.json" >/dev/null; then
+if jq -e --arg v "$VERSION" '.name=="skill-authoring" and .version==$v and .skills==["./skills/author-skill","./skills/triage-agent-memory"] and .interface.capabilities==["Skills"] and .metadata.harness=={"marketplace":"skill-authoring"}' "$PLUGIN/.codex-plugin/plugin.json" >/dev/null \
+  && jq -e --arg v "$VERSION" '.name=="skill-authoring" and .version==$v and .skills==["./skills/author-skill","./skills/triage-agent-memory"] and .metadata.harness=={"marketplace":"skill-authoring"}' "$PLUGIN/.claude-plugin/plugin.json" >/dev/null; then
   pass "runtime manifest identity"
 else
   fail "runtime manifest identity"
