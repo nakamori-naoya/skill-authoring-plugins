@@ -1,6 +1,6 @@
 # 対象repositoryへ適合させる
 
-最初に、対象pathへ適用される指示書、既存の隣接plugin、marketplace、manifest、検証入口を読む。旧sourceの構造や、このpluginを開発したrepositoryの規約を対象へ移植しない。
+最初に、対象pathへ適用される指示書、既存の隣接plugin、marketplace、manifest、検証入口を読む。このpluginを開発したrepositoryの構造や規約を、対象へ移植しない。
 
 既存skillの更新では、発見名、呼び出し方、対応runtime、resource配置、version方針を保ち、依頼が変更を求めるfileとsectionだけを変える。構造変更が責務境界を変える場合は、変更前にその影響を示す。
 
