@@ -12,7 +12,6 @@ __pycache__/
 !/.github/
 !/plugins/
 !/scripts/
-!/releases/
 !/AGENTS.md
 !/LICENSE
 !/README.md
