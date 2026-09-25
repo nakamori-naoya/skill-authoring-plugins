@@ -1,6 +1,6 @@
 # harness pluginのskillを作成・更新する共通規律
 
-この文書は、`harness-pluginsv2` workspaceに属するplugin repositoryでskillを作成・更新するときの、意味上の正式な定義である。workspaceの`.agents`、`.claude`、各plugin repositoryの`AGENTS.md`は、この規律を複製せず参照する。
+この文書は、`harness-pluginsv2` workspaceに属するplugin repositoryでskillを作成・更新するときに、skillの責務、指示、文章、検証をどう判断するかを決める資料である。workspaceの`.agents`、`.claude`、各plugin repositoryの`AGENTS.md`は、この規律を複製せず参照する。
 
 この文書が持つのは、skillの責務、指示、文章、resources、検証の判断規律である。marketplaceやmanifestのschema、公開・内部入口の配置、playbook契約、release、installなど、workspace固有の構造と運用は、workspaceのplugin package契約と各repositoryの規約が持つ。両方が当たる場合は、skillの意味と行動をこの文書で決め、その形がpackage契約に収まるように実装する。
 

@@ -98,7 +98,7 @@ marketplaceの取得と、インストール済みパッケージの更新は分
 
 ## このpackageが持つ判断
 
-`skill-authoring` は、`harness-pluginsv2` workspaceでskillを作成・更新するときの共通規律を持つ。正式な定義は [共通規律](plugins/skill-authoring/skills/author-skill/references/harness-plugin-authoring.md) で、次の判断はそれぞれの節が持つ。
+`skill-authoring` は、`harness-pluginsv2` workspaceでskillを作成・更新するときの共通規律を持つ。規律の本文は [共通規律](plugins/skill-authoring/skills/author-skill/references/harness-plugin-authoring.md) にあり、次の判断はそれぞれの節が持つ。
 
 一つの判断を一つのskillだけが持つこと、判断の持ち主を各repositoryのREADMEのこの節で探すこと、「返す」先を実在する公開入口か「repositoryの決定」に限ることは、「判断の持ち主を一つにする」が持つ。
 
