@@ -4,7 +4,7 @@
 
 このrepositoryは、自己完結したskillを設計・作成・更新する能力だけを配布するsourceである。
 
-skill作成・更新の共通規律の基準資料は、`/Users/naoya-nakamoriq/Documents/Github/harness-pluginsv2/skill-authoring-plugins/plugins/skill-authoring/skills/author-skill/references/harness-plugin-authoring.md`である。このrepositoryの変更では全文を読み、以下にはrepository固有の配布境界だけを置く。共通規律をこのfileへ複製しない。
+workspace 共通の原則は root が持ち、この repository は skill に固有の判断だけを持つ。
 
 - 一つのpluginは`skill-authoring`だけを配布する。
 - marketplaceへ公開するインストール対象は`skill-authoring`だけにする。公開入口は、skillの設計から検査までを完了させる`author-skill`と、agentの記憶と案件の規約を昇格・留置・破棄に振り分ける`triage-agent-memory`の二つである。どちらも内部工程を別の入口へ分解しない。
