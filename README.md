@@ -98,18 +98,6 @@ marketplaceの取得と、インストール済みパッケージの更新は分
 
 ## このpackageが持つ判断
 
-`skill-authoring` は、`harness-pluginsv2` workspaceでskillを作成・更新するときの共通規律を持つ。規律の本文は [共通規律](plugins/skill-authoring/skills/author-skill/references/harness-plugin-authoring.md) にあり、次の判断はそれぞれの節が持つ。
+`author-skill` は、skill を書くときに固有の判断を持つ。skill にするかとどこで分けるか、意味を似て非なる例と反例と境界で決めること、同じ判断を持つ skill を探して参照すること、停止条件にその成果物の結論を書くこと、強調を理由と一緒に一か所だけ使うこと、references と scripts の分け方、振る舞いでの確かめ方である。本文は [plugins/skill-authoring/skills/author-skill/SKILL.md](plugins/skill-authoring/skills/author-skill/SKILL.md) にある。
 
-一つの判断を一つのskillだけが持つこと、判断の持ち主を各repositoryのREADMEのこの節で探すこと、「返す」先を実在する公開入口か「repositoryの決定」に限ることは、「判断の持ち主を一つにする」が持つ。
-
-分からないときに止まるか進むか（欠けた情報が成果物の結論を変えるなら止まって提案し、変えないなら仮説を未決に明示して進む。戻すのに他人の手が要るものを変えるときは止まる）は、「分からないことを推測で埋めない」が持つ。各skillの停止条件は、その成果物にとって何が結論かだけを書く。
-
-後方互換を捨ててあるべき形だけを書くことと、利用者の個別の指示を一段抽象化した原則と判断例に分けて取り込むことは、「あるべき形だけを書く」が持つ。
-
-文の書き方は持たず、`write-doc` が公開の資料として宣言している「書くときの規範」（公開入口 `write-doc` の `references/writing-norms.md`）に従う。
-
-検査scriptには意味が一意に決まることだけを判定させ、解釈の要ることはagentが読んで評価することは、「機械検査と意味評価を分ける」が持つ。
-
-agentの記憶と案件の規約を、pluginの規律への昇格、案件に留める、破棄に振り分ける判断は、公開入口 `triage-agent-memory` が持つ。この入口は振り分けを提案として返し、記憶と規約そのものは書き換えない。
-
-skillが他のskillを参照してよい形も持たず、workspaceのplugin package契約（/Users/naoya-nakamoriq/Documents/Github/harness-pluginsv2/.agents/rules/plugin-package-contract.md）に従う。
+`triage-agent-memory` は、agent の記憶と案件の規約を、plugin の規律への昇格、案件に留める、破棄に振り分ける判断を持つ。振り分けは提案として返し、記憶と規約そのものは書き換えない。
