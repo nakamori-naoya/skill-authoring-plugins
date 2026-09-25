@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Scenario: skill-authoringが単体配布でき、旧モノレポ固有前提を持たない
-# Given: 両runtime向けmanifest、単一skill入口、判断referenceがある
+# Given: 両runtime向けmanifestと二つのskill入口がある
 # When: identity、到達性、配布root検査の正常系と負例を実行する
 # Then: 不整合、旧構造への依存、設定解決runtime、禁止参照形が一つでもあれば非0で終了する
 set -uo pipefail
@@ -92,8 +92,7 @@ fi
 
 # 禁止参照形（root validatorと同じ4 token）。README.mdは対象外
 if ! rg -nF -e '${.' -e '<!-- BEGIN shared:' -e 'CLAUDE_PLUGIN_ROOT' -e 'BUNDLE_ROOT' \
-    "$PLUGIN/skills/author-skill/SKILL.md" "$PLUGIN/skills/author-skill/references" \
-    "$PLUGIN/skills/triage-agent-memory/SKILL.md" "$PLUGIN/skills/triage-agent-memory/references" >/dev/null; then
+    "$PLUGIN/skills" >/dev/null; then
   pass "禁止参照形の不在"
 else
   fail "禁止参照形が残存"
