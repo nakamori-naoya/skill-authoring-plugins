@@ -1,0 +1,7 @@
+- [外部APIの再試行](retry-external-api.md) — 決済APIは指数バックオフで3回まで、間隔の上限は2秒
+- [パッケージ管理](package-manager.md) — 依存は yarn で入れる
+- [テストの形](table-driven-tests.md) — テストは表駆動で書く
+- [日時の保存](datetime-storage.md) — 日時は UTC で保存する
+- [コミットの書き方](commit-style.md) — コミットメッセージに絵文字を使わない
+- [フラグの片付け](feature-flag-cleanup.md) — リリースから2週間でフラグを消す
+- [例の件](pending-decision.md) — 例の件は B 案で

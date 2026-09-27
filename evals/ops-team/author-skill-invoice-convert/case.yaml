@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: author-skill-invoice-convert
+context:
+  scaffold_script: scaffold.sh
