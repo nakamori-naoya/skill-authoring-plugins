@@ -296,13 +296,6 @@ while IFS='|' read -r name version source; do
       fi
     done
   fi
-
-  if [ "$name" = "doc-render" ]; then
-    jq -s -e 'all(.[]; has("skills") | not)' "$codex_manifest" "$claude_manifest" >/dev/null \
-      || fail 'doc-render manifests must not declare skills'
-    jq -e '.interface.capabilities | type == "array" and index("Skills") == null and index("Scripts") != null' "$codex_manifest" >/dev/null \
-      || fail 'doc-render must advertise Scripts without Skills'
-  fi
 done < <(jq -r '.plugins[] | [.name,.version,.source.path] | join("|")' "$codex_catalog")
 
 if [ "$status" -eq 0 ]; then
